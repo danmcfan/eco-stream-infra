@@ -4,23 +4,23 @@ variable "token" {
 
 variable "k8s_version" {
   description = "The Kubernetes version to use for this cluster. (required)"
-  default     = "1.26"
+  default     = "1.28"
 }
 
 variable "label" {
   description = "The unique label to assign to this cluster. (required)"
-  default     = "default-lke-cluster"
+  default     = "alpha"
 }
 
 variable "region" {
   description = "The region where your cluster will be located. (required)"
-  default     = "us-east"
+  default     = "us-lax"
 }
 
 variable "tags" {
   description = "Tags to apply to your cluster for organizational purposes. (optional)"
   type        = list(string)
-  default     = ["testing"]
+  default     = []
 }
 
 variable "pools" {
@@ -31,12 +31,8 @@ variable "pools" {
   }))
   default = [
     {
-      type  = "g6-standard-4"
-      count = 3
-    },
-    {
-      type  = "g6-standard-8"
-      count = 3
+      type  = "g6-standard-1"
+      count = 1
     }
   ]
 }
