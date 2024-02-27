@@ -1,5 +1,8 @@
 .terraform/
 .venv/
+.vscode/
+
+chart/templates/*-configmap.yaml
 
 .env
 

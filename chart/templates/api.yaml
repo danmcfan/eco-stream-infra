@@ -24,8 +24,9 @@ spec:
           value: "0.0.0.0:80"
         - name: MINIO_URL
           value: "minio:9000"
-        - name: POSTGRES_URL
-          value: "postgres://postgres:password@postgres:5432/postgres?sslmode=disable"
+        envFrom:
+        - configMapRef:
+            name: postgres-secret
 ---
 apiVersion: v1
 kind: Service

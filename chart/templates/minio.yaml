@@ -21,14 +21,11 @@ spec:
         - containerPort: 9001
         volumeMounts:
         - mountPath: /data
-          name: localvolume
-      nodeSelector:
-        kubernetes.io/hostname: lke154461-226101-26e661250000
+          name: minio-data
       volumes:
-      - name: localvolume
-        hostPath:
-          path: /mnt/minio/data
-          type: DirectoryOrCreate
+      - name: minio-data
+        persistentVolumeClaim:
+          claimName: minio-volume-claim
 ---
 apiVersion: v1
 kind: Service
@@ -45,3 +42,33 @@ spec:
     port: 9001
     targetPort: 9001
   type: LoadBalancer
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: minio-volume
+  labels:
+    type: local
+    app: minio
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteMany
+  hostPath:
+    path: /data/minio
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: minio-volume-claim
+  labels:
+    app: minio
+spec:
+  storageClassName: manual
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 10Gi
