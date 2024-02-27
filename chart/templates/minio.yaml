@@ -16,6 +16,9 @@ spec:
       - name: minio
         image: quay.io/minio/minio:latest
         args: ["server", "/data", "--console-address", ":9001"]
+        envFrom:
+        - configMapRef:
+            name: minio-secret
         ports:
         - containerPort: 9000
         - containerPort: 9001

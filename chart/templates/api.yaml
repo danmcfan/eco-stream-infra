@@ -27,6 +27,8 @@ spec:
         envFrom:
         - configMapRef:
             name: postgres-secret
+        - configMapRef:
+            name: minio-secret
 ---
 apiVersion: v1
 kind: Service
